@@ -11,7 +11,7 @@ class App extends Component {
             params: { query: term }
         });
 
-        this.setState({ images: response.data.results });
+        this.setState({ images: response.data.results, imagesFound: true });
         if (response.data.results.length === 0) {
             this.setState({imagesFound: false});
         }
