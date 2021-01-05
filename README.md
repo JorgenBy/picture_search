@@ -1,4 +1,4 @@
-# Picture Search
+# GoPicture
 
 Simple React application for searching picture from a free web api
 
