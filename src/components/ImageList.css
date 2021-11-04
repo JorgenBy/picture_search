@@ -9,3 +9,11 @@
      width: 250px;
      grid-row-end: span 2;
  }
+
+ .pagination-div {
+    margin-top: 15px;
+ }
+
+ .pagination-style {
+     justify-content: center;
+ }
