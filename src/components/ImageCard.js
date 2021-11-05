@@ -7,7 +7,6 @@ class ImageCard extends Component {
         this.state = { spans: 0 };
 
         this.imageRef = React.createRef();
-        this.focusImage = this.focusImage.bind(this);
     }
 
     componentDidMount() {
@@ -22,11 +21,6 @@ class ImageCard extends Component {
         this.setState({spans});
     }
 
-    focusImage() {
-        console.log("focusing");
-        this.imageRef.current.focus();
-    }
-
     render() {
 
         const {description, urls} = this.props.image;
@@ -36,7 +30,7 @@ class ImageCard extends Component {
                ref={this.imageRef} 
                alt={description}
                src={urls.regular}
-               onClick={this.focusImage}
+               onClick={() => this.props.onImageSelect(this.props.image)}
                /> 
             </div>
         );

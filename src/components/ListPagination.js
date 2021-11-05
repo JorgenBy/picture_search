@@ -1,6 +1,6 @@
 import React from "react";
 import Pagination from "react-bootstrap/Pagination";
-import './ImageList.css';
+import '../css/imagelist-style.css';
 
 export default function ListPagination(props) {
   const [pageArray, setPageArray] = React.useState([]);
@@ -50,7 +50,6 @@ export default function ListPagination(props) {
 
   return (
     <React.Fragment>
-      {props.children}
       <div className="pagination-div">
         <Pagination size="sm" className="pagination-style">
           {pageArray.map((ele, ind) => {
