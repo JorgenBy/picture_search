@@ -27,6 +27,7 @@ const SearchBar = ({ onSubmit }) => {
                     />{' '}
                     GoPicture
                 </Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="navbarSearch" className="justify-content-center">
                     <Form className="d-flex" onSubmit={onFormSubmit}>
                         <FormControl
