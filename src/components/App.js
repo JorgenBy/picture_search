@@ -81,20 +81,32 @@ class App extends Component {
         })
     }
 
+    onImageDownload = () => {
+        console.log("trigger download");
+    }
+
     renderSelectedImage = () => {
         if (this.state.hasSelectedImage) {
             return (
                 <React.Fragment>
                 <Col>
                     <Container className="position-sticky">
-                        <ImageDetailCard image={this.state.selectedImage} onCloseImage={this.onCloseImage}/>
+                        <ImageDetailCard image={this.state.selectedImage} onCloseImage={this.onCloseImage} onImageDownload={this.onImageDownload}/>
                     </Container>
                 </Col>
                 </React.Fragment>
             )
         }
         else {
-            return null;
+            return (
+                <Col>
+                    <ImageList
+                        images={this.state.images}
+                        renderResults={this.state.imagesFound}
+                        onImageSelect={this.onImageSelect}
+                    />
+                </Col>
+            );
         }
     }
 
@@ -105,13 +117,6 @@ class App extends Component {
                     <Stack gap={3} className="mx-auto pt-2">
                         <Row>
                             {this.renderSelectedImage()}
-                            <Col>
-                                <ImageList
-                                    images={this.state.images}
-                                    renderResults={this.state.imagesFound}
-                                    onImageSelect={this.onImageSelect}
-                                />
-                            </Col>
                         </Row>
                         <Row>
                             <Col>

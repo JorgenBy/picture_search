@@ -1,15 +1,16 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
-import CloseButton from 'react-bootstrap/CloseButton'
+import CloseButton from 'react-bootstrap/CloseButton';
+import '../css/custom.css';
 
-const ImageDetailCard = ({image, onCloseImage}) => {
+const ImageDetailCard = ({image, onCloseImage, onImageDownload}) => {
     if (!image) {
         return null;
     }
     console.log(image);
     const {description, urls} = image;
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card>
             <Card.Header>
                 <CloseButton aria-label="Hide" onClick={onCloseImage}/>
             </Card.Header>
@@ -18,6 +19,14 @@ const ImageDetailCard = ({image, onCloseImage}) => {
             <Card.Text>
                 {description}
             </Card.Text>
+            <a href={urls.full} download="pic">
+            <i 
+                src="../assets/download.svg" 
+                className="bi bi-download"
+                onClick={onImageDownload}
+                >  
+            </i>
+            </a>
             </Card.Body>
         </Card>
     );
