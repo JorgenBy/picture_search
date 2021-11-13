@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import SearchBar from './SearchBar';
 import ImageList from './ImageList';
 import unsplash from '../api/unsplash';
@@ -85,16 +83,27 @@ class App extends Component {
         if (this.state.hasSelectedImage) {
             return (
                 <React.Fragment>
-                <Col>
-                    <Container className="position-sticky">
+                    <Container className="detailContainer">
                         <ImageDetailCard image={this.state.selectedImage} onCloseImage={this.onCloseImage}/>
                     </Container>
-                </Col>
                 </React.Fragment>
             )
         }
         else {
-            return null;
+            return (
+                <React.Fragment>
+                    <ImageList
+                        images={this.state.images}
+                        renderResults={this.state.imagesFound}
+                        onImageSelect={this.onImageSelect}
+                    />
+                    <ListPagination
+                    totPages={this.state.totalPages}
+                    currentPage={this.state.pageNum}
+                    pageClicked={(ele) => { this.onPageChange(ele) }}
+                    />
+                </React.Fragment>
+            );
         }
     }
 
@@ -103,25 +112,7 @@ class App extends Component {
             <Container fixed="realtive">
                 <SearchBar onSubmit={this.onSearchSubmit} />
                     <Stack gap={3} className="mx-auto pt-2">
-                        <Row>
                             {this.renderSelectedImage()}
-                            <Col>
-                                <ImageList
-                                    images={this.state.images}
-                                    renderResults={this.state.imagesFound}
-                                    onImageSelect={this.onImageSelect}
-                                />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <ListPagination
-                                    totPages={this.state.totalPages}
-                                    currentPage={this.state.pageNum}
-                                    pageClicked={(ele) => { this.onPageChange(ele) }}
-                                />
-                            </Col>
-                        </Row>
                     </Stack>
             </Container>
         );

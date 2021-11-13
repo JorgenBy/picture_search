@@ -9,16 +9,14 @@ const ImageDetailCard = ({image, onCloseImage}) => {
     console.log(image);
     const {description, urls} = image;
     return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Header>
-                <CloseButton aria-label="Hide" onClick={onCloseImage}/>
-            </Card.Header>
-            <Card.Img variant="top" src={urls.small} />
+        <Card>
             <Card.Body>
-            <Card.Text>
-                {description}
-            </Card.Text>
+                <CloseButton aria-label="Hide" onClick={onCloseImage}/>
+                <Card.Text>
+                    {description}
+                </Card.Text>
             </Card.Body>
+            <Card.Img variant="bottom" className="cardimage" src={urls.full} />
         </Card>
     );
 }
