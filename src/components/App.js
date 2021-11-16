@@ -22,7 +22,25 @@ class App extends Component {
         selectedImage: null };
 
     componentDidMount() {
-        window.scrollTo(0, 0);
+        this.getRandomPhotosOnLoad();
+    }
+
+    getRandomPhotosOnLoad = async () => {
+        const response = await unsplash.get('/photos/random', {
+            params: { count: 10}
+        });
+
+        console.log(response);
+
+        this.setState({
+            ...this.state,
+            pageNum: 1,
+            images: response.data,
+            imagesFound: true,
+        });
+        if (response.data.length === 0) {
+            this.setState({ imagesFound: false });
+        }
     }
 
     onSearchSubmit = async (term) => {
