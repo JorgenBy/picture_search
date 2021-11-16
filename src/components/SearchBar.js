@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import logo from '../assets/logo.png';
 
 const SearchBar = ({ onSubmit }) => {
-    const [term, setTerm] = useState('labrador');
+    const [term, setTerm] = useState('');
 
     const onFormSubmit = (e) => {
         e.preventDefault();

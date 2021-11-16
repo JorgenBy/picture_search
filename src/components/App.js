@@ -6,12 +6,14 @@ import ImageList from './ImageList';
 import unsplash from '../api/unsplash';
 import ImageDetailCard from './ImageDetailCard';
 import ListPagination from './ListPagination';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import '../css/custom.css';
 
 class App extends Component {
     state = { 
         images: [], 
-        term: 'Labrador', 
+        term: '', 
         imagesFound: true, 
         pageNum: 1, 
         totalPages: 0, 
@@ -20,8 +22,7 @@ class App extends Component {
         selectedImage: null };
 
     componentDidMount() {
-        console.log("scrolling");
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
     }
 
     onSearchSubmit = async (term) => {
@@ -29,15 +30,15 @@ class App extends Component {
             params: { query: term }
         });
 
-        console.log(response);
-
         this.setState({
             term: term,
             pageNum: 1,
             images: response.data.results,
             imagesFound: true,
             totalPages: response.data.total_pages,
-            totalitems: response.data.total
+            totalitems: response.data.total,
+            hasSelectedImage: false,
+            selectedImage: null
         });
         if (response.data.results.length === 0) {
             this.setState({ imagesFound: false });
@@ -55,7 +56,9 @@ class App extends Component {
             images: response.data.results,
             imagesFound: true,
             totalPages: response.data.total_pages,
-            totalitems: response.data.total
+            totalitems: response.data.total,
+            hasSelectedImage: false,
+            selectedImage: null
         });
         if (response.data.results.length === 0) {
             this.setState({ imagesFound: false });
@@ -69,6 +72,7 @@ class App extends Component {
             hasSelectedImage: true,
             selectedImage: image
         });
+        window.scrollTo(0, 0);
     }
 
     onCloseImage = () => {
@@ -79,13 +83,36 @@ class App extends Component {
         })
     }
 
+    onImageDownload = () => {
+        console.log("trigger download");
+    }
+
     renderSelectedImage = () => {
         if (this.state.hasSelectedImage) {
             return (
                 <React.Fragment>
-                    <Container className="detailContainer">
-                        <ImageDetailCard image={this.state.selectedImage} onCloseImage={this.onCloseImage}/>
-                    </Container>
+                    <Row>
+                        <Col sm={4}>
+                                <ImageDetailCard 
+                                    image={this.state.selectedImage} 
+                                    onCloseImage={this.onCloseImage}
+                                    onImageDownload={this.onImageDownload}
+                                />
+                        </Col>
+                        <Col sm={8}>
+                            <ImageList
+                                images={this.state.images}
+                                renderResults={this.state.imagesFound}
+                                onImageSelect={this.onImageSelect}
+                            />
+                            <ListPagination
+                                totPages={this.state.totalPages}
+                                currentPage={this.state.pageNum}
+                                pageClicked={(ele) => { this.onPageChange(ele) }}
+                            />
+                        </Col>
+                    </Row>
+
                 </React.Fragment>
             )
         }
